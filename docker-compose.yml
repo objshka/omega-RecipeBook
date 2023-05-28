@@ -1,0 +1,11 @@
+version: '3.5'
+
+services:
+  recipe-book:
+    container_name: recipe-book
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    image: postgres:15-alpine
