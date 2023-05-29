@@ -1,69 +1,56 @@
 package com.example.omegaRecipeBook.model;
 
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Entity
+@Table(name = "recipes")
+@Data
+@NoArgsConstructor
 public class Recipe {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "cooking_time")
     private int cookingTime;
+
+    @Column(name = "serving_number")
     private int servingNumber;
+
+    @Column(name = "image")
     private String image;
 
-    public Recipe() {
-    }
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+    private List<Ingredient> ingredientList;
+
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+    private List<Step> stepList;
+
+    @ManyToMany(mappedBy = "likedRecipes")
+    private List<User> likedByUsers;
+
+    @ManyToMany(mappedBy = "recipeTags")
+    private List<Tag> tags;
 
     public Recipe(String title, String description, int cookingTime, int servingNumber, String image) {
         this.title = title;
         this.description = description;
         this.cookingTime = cookingTime;
         this.servingNumber = servingNumber;
-        this.image = image;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getCookingTime() {
-        return cookingTime;
-    }
-
-    public void setCookingTime(int cookingTime) {
-        this.cookingTime = cookingTime;
-    }
-
-    public int getServingNumber() {
-        return servingNumber;
-    }
-
-    public void setServingNumber(int servingNumber) {
-        this.servingNumber = servingNumber;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
         this.image = image;
     }
 }
