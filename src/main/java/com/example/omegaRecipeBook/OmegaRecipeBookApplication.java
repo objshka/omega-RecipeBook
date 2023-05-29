@@ -12,9 +12,8 @@ public class OmegaRecipeBookApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(OmegaRecipeBookApplication.class, args);
 	}
-	@GetMapping(value = "/hello")
+	@GetMapping(value = "/")
 	public String hello() {
 		return "Hello World!";
 	}
-
 }
