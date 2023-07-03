@@ -1,13 +1,14 @@
-package com.example.omegaRecipeBook.model;
+package com.example.omegaRecipeBook.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "tags")
+@Table(name = "tag")
 @Data
 @NoArgsConstructor
 public class Tag {
@@ -23,7 +24,7 @@ public class Tag {
             name = "recipe_tag",
             joinColumns = @JoinColumn(name = "tag_id"),
             inverseJoinColumns = @JoinColumn(name = "recipe_id"))
-    private List<Recipe> recipeTags;
+    private List<Recipe> recipeTags = new ArrayList<>();
 
     public Tag(String title) {
         this.title = title;

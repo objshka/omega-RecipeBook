@@ -1,15 +1,17 @@
-package com.example.omegaRecipeBook.model;
+package com.example.omegaRecipeBook.entity;
 
 import jakarta.persistence.*;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Entity
-@Table(name = "steps")
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
-@Data
+@AllArgsConstructor
+@Table(name = "step")
+@Entity
 public class Step {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +24,4 @@ public class Step {
     @JoinColumn(name = "recipe_id", nullable = false)
     private Recipe recipe;
 
-    public Step(String content) {
-        this.content = content;
-    }
 }

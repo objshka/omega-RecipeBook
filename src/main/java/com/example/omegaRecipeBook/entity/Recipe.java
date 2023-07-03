@@ -1,15 +1,18 @@
-package com.example.omegaRecipeBook.model;
+package com.example.omegaRecipeBook.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "recipes")
-@Data
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "recipe")
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,22 +38,14 @@ public class Recipe {
     private User user;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
-    private List<Ingredient> ingredientList;
+    private List<Ingredient> ingredientList = new ArrayList<>();
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
-    private List<Step> stepList;
+    private List<Step> stepList = new ArrayList<>();
 
     @ManyToMany(mappedBy = "likedRecipes")
-    private List<User> likedByUsers;
+    private List<User> likedByUsers = new ArrayList<>();
 
     @ManyToMany(mappedBy = "recipeTags")
-    private List<Tag> tags;
-
-    public Recipe(String title, String description, int cookingTime, int servingNumber, String image) {
-        this.title = title;
-        this.description = description;
-        this.cookingTime = cookingTime;
-        this.servingNumber = servingNumber;
-        this.image = image;
-    }
+    private List<Tag> tags = new ArrayList<>();
 }
